@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <PERSON ID="1" FIRSTNAME="BolekFails" PIN="1234" REGISTRATIONDATE="2013-04-05"/>
+  <PERSON ID="2" FIRSTNAME="Lolek" PIN="4321" REGISTRATIONDATE="2013-04-05"/>
+</dataset>
