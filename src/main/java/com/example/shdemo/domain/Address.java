@@ -15,6 +15,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "address.all", query = "Select a from Address a"),
+	@NamedQuery(name = "address.forPerson", query = "Select a from Address a where a.person = :person_id"),
+	@NamedQuery(name = "person.byId", query = "Select a from Address a where a.id = :id")
+})
 public class Address {
 	
 	private Long id;
@@ -24,6 +29,13 @@ public class Address {
 	private String numerDomu;
 	private Person person;
 	
+	public Address(String ulica, String numerDomu, String miasto, Person person) {
+		super();
+		this.ulica = ulica;
+		this.miasto = miasto;
+		this.numerDomu = numerDomu;
+		this.person = person;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
@@ -50,6 +62,7 @@ public class Address {
 	public void setNumerDomu(String numerDomu) {
 		this.numerDomu = numerDomu;
 	}
+
 	@ManyToOne
 	public Person getPerson() {
 		return person;

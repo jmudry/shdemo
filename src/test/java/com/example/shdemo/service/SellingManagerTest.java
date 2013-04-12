@@ -2,7 +2,6 @@ package com.example.shdemo.service;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -22,8 +21,6 @@ import com.example.shdemo.domain.Person;
 @TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
 @Transactional
 public class SellingManagerTest {
-
-
 
 	@Autowired
 	SellingManager sellingManager;
@@ -49,59 +46,43 @@ public class SellingManagerTest {
 
 		List<Person> retrievedClients = sellingManager.getAllClients();
 
-		// If there is a client with PIN_1 delete it
 		for (Person client : retrievedClients) {
 			if (client.getPin().equals(PIN_1)) {
 				sellingManager.deleteClient(client);
 			}
 		}
 
-		Person person = new Person();
-		person.setFirstName(NAME_1);
-		person.setPin(PIN_1);
-		// ... other properties here
+		Person person = new Person(NAME_1, PIN_1);
 
-		// Pin is Unique
 		sellingManager.addClient(person);
 
 		Person retrievedClient = sellingManager.findClientByPin(PIN_1);
 
 		assertEquals(NAME_1, retrievedClient.getFirstName());
 		assertEquals(PIN_1, retrievedClient.getPin());
-		// ... check other properties here
 	}
 
 	@Test
 	public void addCarCheck() {
-
-		Car car = new Car();
-		car.setMake(MAKE_1);
-		car.setModel(MODEL_1);
-		// ... other properties here
+		Car car = new Car(MAKE_1, MODEL_1);
 
 		Long carId = sellingManager.addNewCar(car);
 
 		Car retrievedCar = sellingManager.findCarById(carId);
 		assertEquals(MAKE_1, retrievedCar.getMake());
 		assertEquals(MODEL_1, retrievedCar.getModel());
-		// ... check other properties here
 
 	}
 
 	@Test
 	public void sellCarCheck() {
-
-		Person person = new Person();
-		person.setFirstName(NAME_2);
-		person.setPin(PIN_2);
+		Person person = new Person(NAME_2, PIN_2);
 
 		sellingManager.addClient(person);
 
 		Person retrievedPerson = sellingManager.findClientByPin(PIN_2);
 
-		Car car = new Car();
-		car.setMake(MAKE_2);
-		car.setModel(MODEL_2);
+		Car car = new Car(MAKE_2, MODEL_2);
 
 		Long carId = sellingManager.addNewCar(car);
 
@@ -117,28 +98,19 @@ public class SellingManagerTest {
 
 	@Test
 	public void disposeCarCheck() {
-		// Do it yourself
-		Person person = new Person();
-		person.setFirstName(NAME_2);
-		person.setPin(PIN_2);
+		Person person = new Person(NAME_2, PIN_2);
 
 		sellingManager.addClient(person);
 
 		Person retrievedPerson = sellingManager.findClientByPin(PIN_2);
 
-		Car car1 = new Car();
-		car1.setMake(MAKE_1);
-		car1.setModel(MODEL_1);
-
-		Car car2 = new Car();
-		car2.setMake(MAKE_2);
-		car2.setModel(MODEL_2);
+		Car car1 = new Car(MAKE_1, MODEL_1);
+		Car car2 = new Car(MAKE_2, MODEL_2);
 
 		Long carId1 = sellingManager.addNewCar(car1);
 		Long carId2 = sellingManager.addNewCar(car2);
 		sellingManager.sellCar(retrievedPerson.getId(), carId1);
 		sellingManager.sellCar(retrievedPerson.getId(), carId2);
-		
 		List<Car> ownedCars = sellingManager.getOwnedCars(retrievedPerson);
 
 		assertEquals(2, ownedCars.size());
@@ -155,8 +127,8 @@ public class SellingManagerTest {
 		assertEquals(false, soldCar.getSold());
 	}
 	
-	//@Test
-	public void disposerCar2 () {
+/*	//@Test
+	public void changedModelOrNot () {
 		Car car = new Car();
 		car.setMake(MAKE_1);
 		car.setModel(MODEL_1);
@@ -164,57 +136,47 @@ public class SellingManagerTest {
 		sellingManager.addNewCar(car);
 		
 		car.setModel("Mirafiori");
+	}*/
+	
+	@Test
+	public void checkAddAddress () {
+		Person person = new Person(NAME_1, PIN_1);
+		
+		Address address = new Address(ULICA_1, NUMER_DOMU_1, MIASTO_1, person);
+		
+		Long addressId = sellingManager.addNewAddress(address);
+		
+		address = sellingManager.findAddressById(addressId);
+		assertEquals(MIASTO_1, address.getMiasto());
+		assertEquals(ULICA_1, address.getUlica());
+		assertEquals(NUMER_DOMU_1, address.getNumerDomu());
+		assertEquals(NAME_1, address.getPerson().getFirstName());
+		assertEquals(PIN_1, address.getPerson().getPin());
 	}
 	
 	@Test
-	public void disposeCar3() {
-		Person person = new Person();
-		person.setFirstName(NAME_1);
-		person.setPin(PIN_1);
-
-		Car car1 = new Car();
-		car1.setMake(MAKE_1);
-		car1.setModel(MODEL_1);
-
-		Car car2 = new Car();
-		car2.setMake(MAKE_2);
-		car2.setModel(MODEL_2);
-
-		Long carId1 = sellingManager.addNewCar(car1);
-		Long carId2 = sellingManager.addNewCar(car2);
-		List<Car> cars = new ArrayList<Car>();
-		cars.add(car1);
-		cars.add(car2);
-		person.setCars(cars);
-		
-		sellingManager.addClient(person);
-		
-		Person p = sellingManager.findClientByPin(PIN_1);
-		
-		assertEquals(2, p.getCars().size());
-	}
-	
-	//@Test
 	public void checkPersonAddress () {
-		Person person = new Person();
-		person.setFirstName(NAME_1);
-		person.setPin(PIN_1);
+		Person person1 = new Person(NAME_1, PIN_1);
+		Person person2 = new Person(NAME_2, PIN_2);
 		
-		Address address = new Address();
-		address.setMiasto(MIASTO_1);
-		address.setUlica(ULICA_1);
-		address.setNumerDomu(NUMER_DOMU_1);
+		sellingManager.addClient(person1);
+		sellingManager.addClient(person2);
+		
+		Address address = new Address(ULICA_1, NUMER_DOMU_1, MIASTO_1, person1);
 		sellingManager.addNewAddress(address);
+
+		Person person = sellingManager.findClientByPin(PIN_1);
 		
-		person.addAddress(address);
+		List<Address> addresses = sellingManager.getAddressess(person);
+		assertEquals(1, addresses.size());
+		assertEquals(MIASTO_1, addresses.get(0).getMiasto());
+		assertEquals(ULICA_1, addresses.get(0).getUlica());
+		assertEquals(NUMER_DOMU_1, addresses.get(0).getNumerDomu());
 		
-		sellingManager.addClient(person);
-/*		Person p = sellingManager.findClientByPin(PIN_1);
-		
-		assertEquals(1, p.getAddresses().size());*/
-/*		assertEquals(MIASTO_1, p.getAddresses().get(0).getMiasto());
-		assertEquals(ULICA_1, p.getAddress().getUlica());
-		assertEquals(NUMER_DOMU_1, p.getAddress().getNumerDomu());*/
+		//druga osoba dalej nie ma adresu
+		person = sellingManager.findClientByPin(PIN_2);
+		addresses = sellingManager.getAddressess(person);
+		assertEquals(0, addresses.size());
 		
 	}
 

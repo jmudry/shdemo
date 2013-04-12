@@ -87,6 +87,7 @@ public class SellingMangerHibernateImpl implements SellingManager {
 		Car car = (Car) sessionFactory.getCurrentSession()
 				.get(Car.class, carId);
 		car.setSold(true);
+		sessionFactory.getCurrentSession().update(car);
 		person.getCars().add(car);
 	}
 
@@ -122,5 +123,20 @@ public class SellingMangerHibernateImpl implements SellingManager {
 	public Car findCarById(Long id) {
 		return (Car) sessionFactory.getCurrentSession().get(Car.class, id);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Address> getAddressess(Person person) {
+		person = (Person) sessionFactory.getCurrentSession().get(Person.class,
+				person.getId());
+		return (List<Address>) sessionFactory.getCurrentSession().getNamedQuery("address.forPerson").setLong("person_id", person.getId()).list();
+	}
+
+	@Override
+	public Address findAddressById(Long id) {
+		return (Address) sessionFactory.getCurrentSession().get(Address.class, id);
+	}
+	
+	
 
 }

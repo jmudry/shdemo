@@ -2,8 +2,8 @@
 <dataset>
   <ADDRESS/>
   <CAR ID="1" MAKE="Fiat" MODEL="126p" SOLD="false"/>
-  <CAR ID="2" MAKE="Ford" MODEL="Mondeo" SOLD="true"/>
+  <CAR ID="2" MAKE="Ford" MODEL="Mondeo" SOLD="false"/>
   <PERSON ID="1" FIRSTNAME="Bolek" PIN="1234" REGISTRATIONDATE="2013-04-05"/>
   <PERSON ID="2" FIRSTNAME="Lolek" PIN="4321" REGISTRATIONDATE="2013-04-05"/>
-  <PERSON_CAR CARS_ID="2" PERSON_ID="2"/>
+  <PERSON_CAR />
 </dataset>

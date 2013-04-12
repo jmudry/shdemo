@@ -1,10 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <ADDRESS/>
+  <ADDRESS NUMERDOMU="21" ULICA="Traktorowa" MIASTO ="Olsztyn" PERSON_ID="1"/>
   <CAR ID="1" MAKE="Fiat" MODEL="126p" SOLD="false"/>
   <CAR ID="2" MAKE="Ford" MODEL="Mondeo" SOLD="true"/>
-  <CAR ID="3" MAKE="Fiat" MODEL="126p" SOLD="false"/>
-  <CAR ID="4" MAKE="Ford" MODEL="Mondeo" SOLD="false"/>
   <PERSON ID="1" FIRSTNAME="Bolek" PIN="1234" REGISTRATIONDATE="2013-04-05"/>
   <PERSON ID="2" FIRSTNAME="Lolek" PIN="4321" REGISTRATIONDATE="2013-04-05"/>
   <PERSON_CAR CARS_ID="2" PERSON_ID="2"/>

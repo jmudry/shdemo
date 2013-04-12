@@ -17,7 +17,9 @@ public interface SellingManager {
 	Long addNewAddress(Address address);
 	List<Car> getAvailableCars();
 	void disposeCar(Person person, Car car);
+	List<Address> getAddressess(Person person);
 	Car findCarById(Long id);
+	Address findAddressById(Long id);
 
 	List<Car> getOwnedCars(Person person);
 	void sellCar(Long personId, Long carId);

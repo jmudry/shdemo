@@ -11,8 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -31,14 +29,22 @@ public class Person {
 	private String firstName = "unknown";
 	private String pin = "";
 	private Date registrationDate = new Date();
-	private List<Address> addresses = new ArrayList<Address>();
 	private List<Car> cars = new ArrayList<Car>();
 
+	public Person() {
+		super();
+	}
+	public Person(String firstName, String pin) {
+		super();
+		this.firstName = firstName;
+		this.pin = pin;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -73,17 +79,6 @@ public class Person {
 	}
 	public void setCars(List<Car> cars) {
 		this.cars = cars;
-	}
-	@OneToMany@JoinColumn(name="address")
-	public List<Address> getAddresses() {
-		return addresses;
-	}
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
-	
-	public void addAddress(Address address) {
-		addresses.add(address);
 	}
 	
 }

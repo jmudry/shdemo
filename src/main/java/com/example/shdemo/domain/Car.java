@@ -16,6 +16,17 @@ public class Car {
 	private Long id;
 	private String make;
 	private String model;
+	
+	public Car() {
+		super();
+	}
+	
+	public Car(String make, String model) {
+		super();
+		this.make = make;
+		this.model = model;
+	}
+
 	private Boolean sold = false;
 
 	@Id

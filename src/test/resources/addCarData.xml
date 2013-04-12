@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <CAR MAKE="Fiat" MODEL="126p" SOLD="false"/>
+  <CAR MAKE="Ford" MODEL="Mondeo" SOLD="true"/>
+  <CAR MAKE="Seat" MODEL="Ibiza" SOLD="false"/>
+</dataset>
